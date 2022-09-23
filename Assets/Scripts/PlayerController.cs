@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
 	private Rigidbody rb;
 	private float distanceToGround;
 	public bool isGrounded = true;
-	private float jumpForce = 5f;
+	private float jumpForce = 8f;
 
 	//Player Animations
 	private Animator playerAnim;
