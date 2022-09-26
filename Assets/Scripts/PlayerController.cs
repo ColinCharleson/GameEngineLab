@@ -52,6 +52,9 @@ public class PlayerController : MonoBehaviour
 		inputAction.Player.Move.performed += cntxt => move = cntxt.ReadValue<Vector2>();
 		inputAction.Player.Move.canceled += cntxt => move = Vector2.zero;
 
+		inputAction.Player.Look.performed += cntxt => rotation = cntxt.ReadValue<Vector2>();
+		inputAction.Player.Look.canceled += cntxt => rotation = Vector2.zero;
+
 		inputAction.Player.Jump.performed += cntxt => Jump();
 
 		inputAction.Player.Shoot.performed += cntxt => Shoot();
@@ -61,6 +64,7 @@ public class PlayerController : MonoBehaviour
 		playerCamera = GetComponentInChildren<Camera>();
 
 		distanceToGround = GetComponent<Collider>().bounds.extents.y;
+		cameraRotation = new Vector3(transform.rotation.x, transform.rotation.y, transform.rotation.z);
 	}
 	
 	private void Jump()
@@ -80,9 +84,22 @@ public class PlayerController : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
+		cameraRotation = new Vector3(cameraRotation.x + rotation.y, cameraRotation.y + rotation.x, cameraRotation.z);
+
+		playerCamera.transform.rotation = Quaternion.Euler(cameraRotation);
+		transform.eulerAngles = new Vector3(transform.rotation.x, cameraRotation.y, transform.rotation.z);
+
 		transform.Translate(Vector3.forward * move.y * Time.deltaTime * speed, Space.Self);
 		transform.Translate(Vector3.right * move.x * Time.deltaTime * speed, Space.Self);
 
 		isGrounded = Physics.Raycast(transform.position, -Vector3.up, distanceToGround);
+
+		Vector3 m = new Vector3(move.x, 0, move.y);
+		AnimateRun(m);
+	}
+	void AnimateRun(Vector3 m)
+	{
+		isWalking = (m.x > 0.1f || m.x < -0.1f) || (m.z > 0.1f || m.z < -0.1f) ? true : false;
+		playerAnim.SetBool("isWalking", isWalking);
 	}
 }
