@@ -11,7 +11,8 @@ public class Bullet : MonoBehaviour
 
         if(other.collider.tag == "Player")
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            other.gameObject.GetComponent<PlayerController>().health -= 1;
+
         } else if(other.collider.tag == "Enemy")
         {
             Destroy(other.gameObject);
