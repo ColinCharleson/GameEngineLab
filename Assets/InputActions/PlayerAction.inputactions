@@ -172,6 +172,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Save",
+                    "type": "Button",
+                    "id": "2b3bdc02-e7fd-40d3-832c-6ee7a05eadff",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -216,6 +225,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "DropItem",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "daa9aaeb-5d55-471d-b832-232ba3747222",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Save",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

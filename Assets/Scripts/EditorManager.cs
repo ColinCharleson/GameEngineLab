@@ -13,22 +13,18 @@ public class EditorManager : MonoBehaviour
     public bool editorMode = false;
     public bool instantiated = false;
 
+    Vector3 mousePos;
+
     public GameObject prefab1;
     public GameObject prefab2;
 
+    Subject subject = new Subject();
+
     GameObject item;
-    private void OnEnable()
-    {
-        inputAction.Editor.Enable();
-    }
-    private void OnDisable()
-    {
-        inputAction.Editor.Disable();
-    }
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
-        inputAction = new PlayerAction();
+        inputAction = PlayerInputController.controller.inputAction;
 
         inputAction.Editor.EnableEditor.performed += cntxt => SwitchCamera();
 
@@ -47,23 +43,36 @@ public class EditorManager : MonoBehaviour
     }
     void AddItem(int itemId)
     {
-        if(editorMode && instantiated)
+        if(editorMode && !instantiated)
             switch(itemId)
 			{
                 case 1:
                     item = Instantiate(prefab1);
+
+                    SpikeBall spike1 = new SpikeBall(item, new GreenMat());
+                    subject.AddObserver(spike1);
                     break;
                 case 2:
                     item = Instantiate(prefab2);
+
+                    SpikeBall spike2 = new SpikeBall(item, new YellowMat());
+                    subject.AddObserver(spike2);
                     break;
                 default:
                     break;
-			}
+            }
+        subject.Notify();
         instantiated = true;
     }
     void DropItem()
     {
+        if (editorMode && instantiated)
+        {
+            item.GetComponent<Rigidbody>().useGravity = true;
+            item.GetComponent<Collider>().enabled = true;
+        }
 
+        instantiated = false;
     }
 
     // Update is called once per frame
@@ -81,5 +90,14 @@ public class EditorManager : MonoBehaviour
             Time.timeScale = 1;
             Cursor.lockState = CursorLockMode.Locked;
         }
+
+        if(instantiated && editorMode)
+		{
+            mousePos = Mouse.current.position.ReadValue();
+            mousePos = new Vector3(mousePos.x, mousePos.y, 10f);
+
+            item.transform.position = editorCamera.ScreenToWorldPoint(mousePos);
+
+		}
     }
 }

@@ -194,6 +194,15 @@ public partial class @PlayerAction : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Save"",
+                    ""type"": ""Button"",
+                    ""id"": ""2b3bdc02-e7fd-40d3-832c-6ee7a05eadff"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -240,6 +249,17 @@ public partial class @PlayerAction : IInputActionCollection2, IDisposable
                     ""action"": ""DropItem"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""daa9aaeb-5d55-471d-b832-232ba3747222"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Save"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -258,6 +278,7 @@ public partial class @PlayerAction : IInputActionCollection2, IDisposable
         m_Editor_AddItem1 = m_Editor.FindAction("AddItem1", throwIfNotFound: true);
         m_Editor_AddItem2 = m_Editor.FindAction("AddItem2", throwIfNotFound: true);
         m_Editor_DropItem = m_Editor.FindAction("DropItem", throwIfNotFound: true);
+        m_Editor_Save = m_Editor.FindAction("Save", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -378,6 +399,7 @@ public partial class @PlayerAction : IInputActionCollection2, IDisposable
     private readonly InputAction m_Editor_AddItem1;
     private readonly InputAction m_Editor_AddItem2;
     private readonly InputAction m_Editor_DropItem;
+    private readonly InputAction m_Editor_Save;
     public struct EditorActions
     {
         private @PlayerAction m_Wrapper;
@@ -386,6 +408,7 @@ public partial class @PlayerAction : IInputActionCollection2, IDisposable
         public InputAction @AddItem1 => m_Wrapper.m_Editor_AddItem1;
         public InputAction @AddItem2 => m_Wrapper.m_Editor_AddItem2;
         public InputAction @DropItem => m_Wrapper.m_Editor_DropItem;
+        public InputAction @Save => m_Wrapper.m_Editor_Save;
         public InputActionMap Get() { return m_Wrapper.m_Editor; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -407,6 +430,9 @@ public partial class @PlayerAction : IInputActionCollection2, IDisposable
                 @DropItem.started -= m_Wrapper.m_EditorActionsCallbackInterface.OnDropItem;
                 @DropItem.performed -= m_Wrapper.m_EditorActionsCallbackInterface.OnDropItem;
                 @DropItem.canceled -= m_Wrapper.m_EditorActionsCallbackInterface.OnDropItem;
+                @Save.started -= m_Wrapper.m_EditorActionsCallbackInterface.OnSave;
+                @Save.performed -= m_Wrapper.m_EditorActionsCallbackInterface.OnSave;
+                @Save.canceled -= m_Wrapper.m_EditorActionsCallbackInterface.OnSave;
             }
             m_Wrapper.m_EditorActionsCallbackInterface = instance;
             if (instance != null)
@@ -423,6 +449,9 @@ public partial class @PlayerAction : IInputActionCollection2, IDisposable
                 @DropItem.started += instance.OnDropItem;
                 @DropItem.performed += instance.OnDropItem;
                 @DropItem.canceled += instance.OnDropItem;
+                @Save.started += instance.OnSave;
+                @Save.performed += instance.OnSave;
+                @Save.canceled += instance.OnSave;
             }
         }
     }
@@ -440,5 +469,6 @@ public partial class @PlayerAction : IInputActionCollection2, IDisposable
         void OnAddItem1(InputAction.CallbackContext context);
         void OnAddItem2(InputAction.CallbackContext context);
         void OnDropItem(InputAction.CallbackContext context);
+        void OnSave(InputAction.CallbackContext context);
     }
 }
