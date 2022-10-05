@@ -75,17 +75,23 @@ public class PlayerController : MonoBehaviour
 	}
 	private void Shoot()
 	{
-		Rigidbody bulletRb = Instantiate(bullet, bulletPos.position ,Quaternion.identity).GetComponent<Rigidbody>();
-		bulletRb.AddForce(transform.forward * 320f, ForceMode.Impulse);
-		bulletRb.AddForce(transform.up, ForceMode.Impulse);
+		if (EditorManager.instance.editorMode == false)
+		{
+			Rigidbody bulletRb = Instantiate(bullet, bulletPos.position, Quaternion.identity).GetComponent<Rigidbody>();
+			bulletRb.AddForce(transform.forward * 320f, ForceMode.Impulse);
+			bulletRb.AddForce(transform.up, ForceMode.Impulse);
+		}
 	}
 	// Update is called once per frame
 	void Update()
 	{
 		cameraRotation = new Vector3(cameraRotation.x + rotation.y, cameraRotation.y + rotation.x, cameraRotation.z);
 
-		playerCamera.transform.rotation = Quaternion.Euler(cameraRotation);
-		transform.eulerAngles = new Vector3(transform.rotation.x, cameraRotation.y, transform.rotation.z);
+		if (EditorManager.instance.editorMode == false)
+		{
+			playerCamera.transform.rotation = Quaternion.Euler(cameraRotation);
+			transform.eulerAngles = new Vector3(transform.rotation.x, cameraRotation.y, transform.rotation.z);
+		}
 
 		transform.Translate(Vector3.forward * move.y * Time.deltaTime * speed, Space.Self);
 		transform.Translate(Vector3.right * move.x * Time.deltaTime * speed, Space.Self);

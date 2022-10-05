@@ -5,6 +5,8 @@ using UnityEngine.InputSystem;
 
 public class EditorManager : MonoBehaviour
 {
+    public static EditorManager instance;
+
     PlayerAction inputAction;
 
     public Camera mainCamera;
@@ -20,7 +22,11 @@ public class EditorManager : MonoBehaviour
 
     Subject subject = new Subject();
 
-    GameObject item;
+    public GameObject item;
+
+    ICommand command;
+
+    UIManager ui;
     // Start is called before the first frame update
     void Start()
     {
@@ -34,12 +40,22 @@ public class EditorManager : MonoBehaviour
 
         mainCamera.enabled = true;
         editorCamera.enabled = false;
-    }
 
+        ui = GetComponent<UIManager>();
+    }
+    private void Awake()
+    {
+        if (!instance)
+        {
+            instance = this;
+        }
+    }
     void SwitchCamera()
     {
         mainCamera.enabled = !mainCamera.enabled;
         editorCamera.enabled = !editorCamera.enabled;
+
+        ui.ToggleEditorUI();
     }
     void AddItem(int itemId)
     {
@@ -70,9 +86,13 @@ public class EditorManager : MonoBehaviour
         {
             item.GetComponent<Rigidbody>().useGravity = true;
             item.GetComponent<Collider>().enabled = true;
+
+            command = new PlaceItemCommand(item.transform.position, item.transform);
+            CommandInvoker.AddCommand(command);
+
+            instantiated = false;
         }
 
-        instantiated = false;
     }
 
     // Update is called once per frame
