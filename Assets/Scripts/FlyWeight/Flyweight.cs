@@ -19,7 +19,7 @@ public class Flyweight : MonoBehaviour
 
 		fn = Application.dataPath + "/save.txt";
 
-		LoadItems();
+	//	LoadItems();
 	}
 
 	void LoadItems()

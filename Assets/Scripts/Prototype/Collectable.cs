@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Coin : MonoBehaviour
+public class Collectable : MonoBehaviour
 {
-	public int value = 1;
+	public int score = 1;
 	private void OnTriggerEnter(Collider other)
 	{
 		if(other.tag == "Player")
 		{
-			ScoreManager.instance.ChangeScore(value);
+			ScoreManager.instance.ChangeScore(score);
 			Destroy(gameObject);
 		}
 	}

@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de529e86444255d40aae996bcbe35290, type: 3}
+  m_Name: GemBlue
+  m_EditorClassIdentifier: 
+  _name: Blue Gem
+  _score: 10
+  _prefab: {fileID: 5892013901457047199, guid: 8fe7f6191d63c6a4586bc41107fb24c9, type: 3}
