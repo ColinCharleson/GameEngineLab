@@ -77,7 +77,8 @@ public class PlayerController : MonoBehaviour
 	{
 		if (EditorManager.instance.editorMode == false)
 		{
-			Rigidbody bulletRb = Instantiate(bullet, bulletPos.position, Quaternion.identity).GetComponent<Rigidbody>();
+			//Rigidbody bulletRb = Instantiate(bullet, bulletPos.position, Quaternion.identity).GetComponent<Rigidbody>();
+			Rigidbody bulletRb = ObjectPooler.instance.SpawnFromPool("Bullet", bulletPos.position, Quaternion.identity).GetComponent<Rigidbody>();
 			bulletRb.AddForce(transform.forward * 320f, ForceMode.Impulse);
 			bulletRb.AddForce(transform.up, ForceMode.Impulse);
 		}

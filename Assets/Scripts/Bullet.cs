@@ -5,14 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class Bullet : MonoBehaviour
 {
-	public float lifeTime;
 	private void OnCollisionEnter(Collision other)
 	{
-		Destroy(gameObject);
+		gameObject.SetActive(false);
 
 		if (other.collider.tag == "Player")
 		{
-			if (other.gameObject.GetComponent<PlayerController>().health >= 1)
+			if (other.gameObject.GetComponent<PlayerController>().health >= 2)
 			{
 				other.gameObject.GetComponent<PlayerController>().health -= 1;
 			}
@@ -27,13 +26,5 @@ public class Bullet : MonoBehaviour
 		{
 			Destroy(other.gameObject);
 		}
-	}
-
-	private void Update()
-	{
-		lifeTime += Time.deltaTime;
-
-		if (lifeTime > 3)
-			Destroy(gameObject);
 	}
 }
