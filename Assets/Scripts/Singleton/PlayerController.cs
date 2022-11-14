@@ -10,8 +10,6 @@ public class PlayerController : MonoBehaviour
 
 	public PlayerAction inputAction;
 
-	public int health = 3;
-	public Text healthText;
 	public Text scoreText;
 
 	//Player Camera
@@ -102,11 +100,7 @@ public class PlayerController : MonoBehaviour
 		Vector3 m = new Vector3(move.x, 0, move.y);
 		AnimateRun(m);
 
-		healthText.text = health.ToString();
 		scoreText.text = ScoreManager.instance.score.ToString();
-
-		if (health <= 0)
-			Destroy(gameObject);
 	}
 	void AnimateRun(Vector3 m)
 	{

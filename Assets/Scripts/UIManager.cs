@@ -18,6 +18,11 @@ public class UIManager : MonoBehaviour
             editorUI.enabled = false;
             gameUI.enabled = true;
 		}
+		else
+        {
+            editorUI.enabled = true;
+            gameUI.enabled = false;
+        }
     }
 
     public void ToggleEditorUI()

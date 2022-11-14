@@ -17,6 +17,7 @@ public class PrototypeFactory : MonoBehaviour
     BlueGem bluePrototype;
     RedGem redPrototype;
     GreenGem greenPrototype;
+    Heart heartPrototype;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,6 +27,7 @@ public class PrototypeFactory : MonoBehaviour
         bluePrototype = new BlueGem(allData[1]._prefab, allData[1]._score);
         greenPrototype = new GreenGem(allData[2]._prefab, allData[2]._score);
         redPrototype = new RedGem(allData[3]._prefab, allData[3]._score);
+        heartPrototype = new Heart(allData[4]._prefab, allData[4]._heal);
 
         for(int i = 0; i < allData.Count; i++)
 		{
@@ -53,6 +55,9 @@ public class PrototypeFactory : MonoBehaviour
                 break;
             case "Red Gem":
                 editor.item = redPrototype.Clone().Spawn();
+                break;
+            case "Heart":
+                editor.item = heartPrototype.Clone().Spawn();
                 break;
 
             default:

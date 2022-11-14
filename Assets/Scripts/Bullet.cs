@@ -5,22 +5,19 @@ using UnityEngine.SceneManagement;
 
 public class Bullet : MonoBehaviour
 {
+	PlayerStats playerStat;
+
+	private void Awake()
+	{
+		playerStat = PlayerManager.instance.player.GetComponent<PlayerStats>();
+	}
 	private void OnCollisionEnter(Collision other)
 	{
 		gameObject.SetActive(false);
 
 		if (other.collider.tag == "Player")
 		{
-			if (other.gameObject.GetComponent<PlayerController>().health >= 2)
-			{
-				other.gameObject.GetComponent<PlayerController>().health -= 1;
-			}
-			else
-			{
-				Scene scene = SceneManager.GetActiveScene();
-				SceneManager.LoadScene(scene.name);
-			}
-
+			playerStat.TakeDamage(playerStat.damage);
 		}
 		else if (other.collider.tag == "Enemy")
 		{
