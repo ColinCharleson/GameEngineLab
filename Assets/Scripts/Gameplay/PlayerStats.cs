@@ -11,8 +11,6 @@ public class PlayerStats : CharacterStats
 	{
 		base.Die();
 
-		animator.SetTrigger("isDead");
-
-		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+		GameplayManager.gameplay.LosePanelToggle();
 	}
 }

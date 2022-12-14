@@ -10,7 +10,6 @@ public class PlayerController : MonoBehaviour
 
 	public PlayerAction inputAction;
 
-	public Text scoreText;
 
 	//Player Camera
 	private Camera playerCamera;
@@ -54,6 +53,8 @@ public class PlayerController : MonoBehaviour
 		inputAction.Player.Jump.performed += cntxt => Jump();
 
 		inputAction.Player.Shoot.performed += cntxt => Shoot();
+
+		inputAction.Player.Quit.performed += cntxt => QuitGame();
 
 		rb = GetComponent<Rigidbody>();
 		playerAnim = GetComponent<Animator>();
@@ -100,11 +101,16 @@ public class PlayerController : MonoBehaviour
 		Vector3 m = new Vector3(move.x, 0, move.y);
 		AnimateRun(m);
 
-		scoreText.text = ScoreManager.instance.score.ToString();
 	}
 	void AnimateRun(Vector3 m)
 	{
 		isWalking = (m.x > 0.1f || m.x < -0.1f) || (m.z > 0.1f || m.z < -0.1f) ? true : false;
 		playerAnim.SetBool("isWalking", isWalking);
 	}
+
+	void QuitGame()
+	{
+		Application.Quit();
+	}
+
 }

@@ -10,6 +10,11 @@ public class Collectable : MonoBehaviour
 	{
 		if(other.tag == "Player")
 		{
+			if(score == 0 && heal == 0)
+			{
+				GameplayManager.gameplay.WinPanelToggle();
+			}
+
 			if(score != 0)
 				ScoreManager.instance.ChangeScore(score);
 

@@ -127,3 +127,27 @@ public class Heart : PickUp
 		return new Heart(Instantiate(clone), heal);
 	}
 }
+
+public class Key : PickUp
+{
+	public Key(GameObject clone)
+    {
+        this.clone = clone;
+    }
+	public override GameObject Spawn()
+	{
+		if (!clone.GetComponent<Collectable>())
+		{
+		clone.AddComponent<Collectable>();
+		}
+
+		clone.GetComponent<Collectable>().heal = 0;
+		clone.GetComponent<Collectable>().score = 0;
+
+		return clone;
+	}
+	public override PickUp Clone()
+	{
+		return new Key(Instantiate(clone));
+	}
+}

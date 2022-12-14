@@ -11,6 +11,9 @@ public class EnemyFactory : MonoBehaviour
     public GameObject prefab1;
     public GameObject prefab2;
 
+    public GameObject spikePrefab1;
+    public GameObject spikePrefab2;
+
     public GameObject buttonPanel;
     public GameObject buttonPrefab;
 
@@ -52,7 +55,7 @@ public class EnemyFactory : MonoBehaviour
         foreach(Enemy enemy in enemies)
 		{
             var button = Instantiate(buttonPrefab);
-            button.transform.SetParent(buttonPanel.transform);
+            button.transform.SetParent(buttonPanel.transform, false);
             button.gameObject.name = enemy.Name + " Button";
             button.GetComponentInChildren<TextMeshProUGUI>().text = enemy.Name;
 		}

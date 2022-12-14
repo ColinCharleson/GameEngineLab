@@ -39,9 +39,16 @@ public class SavePlugin : MonoBehaviour
 
         inputAction.Editor.Save.performed += cntxt => SaveItems();
 
-        m_Path = Application.dataPath;
+        if(Application.isEditor)
+        {
+            m_Path = Application.dataPath;
+        }
+		else
+		{
+            m_Path = Application.persistentDataPath;
+		}
         fn = m_Path + "/save.txt";
-        Debug.Log(fn);    
+        Debug.Log(fn);
     }
 
     void SaveItems()
